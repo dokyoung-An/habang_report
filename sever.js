@@ -11,6 +11,8 @@ const pdf = require("html-pdf");
 const fs = require("fs-extra",'fs');
 const ejs = require("ejs");
 
+const PORT = process.env.PORT || 3000; // 환경 변수 사용
+
 
 // Express 설정
 app.use(express.static(path.join(__dirname, "/public")));
@@ -1895,7 +1897,7 @@ app.get("/after-report-check/:id", async (req, res) => {
         ...defect,
         images: Array.isArray(defect.images) ? defect.images : []
       }));
-      
+
     if (report) {
       console.log("✅ 후점검 보고서 존재:", reportId);
       return res.json({ exists: true });
@@ -2113,5 +2115,5 @@ app.get("/download-after-images/:id", async (req, res) => {
 
 // ✅ MongoDB 연결 후 서버 실행
 connectDB().then(() => {
-  app.listen(8080, () => console.log("✅ 서버 실행: http://localhost:8080"));
+  app.listen(PORT, () => console.log(`✅ 서버 실행: http://localhost:${PORT}`));
 });
