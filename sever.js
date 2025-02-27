@@ -29,24 +29,25 @@ app.get("*.map", (req, res) => {
   res.status(404).send("❌ Sourcemap 파일 없음!");
 });
 
-// ✅ MongoDB 연결 설정
-const url =
-  "mongodb+srv://a01090206022:2jSJVGWNytOhtln2@habang.yko44.mongodb.net/?retryWrites=true&w=majority&appName=HABANG";
-const client = new MongoClient(url);
 
-let db;
-async function connectDB() {
-  if (db) return db;
+//monggodb 연결
+const mongoose = require("mongoose");
+
+const connectDB = async () => {
   try {
-    await client.connect();
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("✅ MongoDB 연결 성공!");
-    db = client.db("Report");
-    return db;
-  } catch (err) {
-    console.error("❌ MongoDB 연결 실패:", err);
+  } catch (error) {
+    console.error("❌ MongoDB 연결 실패:", error);
     process.exit(1);
   }
-}
+};
+
+module.exports = connectDB;
+
 
 // ✅ Multer 파일 업로드 설정
 const storage = multer.diskStorage({
