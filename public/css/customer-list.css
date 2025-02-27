@@ -1,0 +1,171 @@
+:root {
+    --primary-blue: #0066cc;
+    --secondary-blue: #e6f3ff;
+    --text-dark: #2c3e50;
+}
+
+
+
+.page-title {
+    margin-top: 4rem;
+}
+
+/* ✅ 컨테이너 설정 (PC에서도 넓게 표시) */
+
+/* ✅ 검색 바 스타일 */
+.search-container {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.search-container form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-container input {
+    flex: 1;
+    max-width: 600px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+
+.search-container button {
+    height: 40px;
+    padding: 0 15px;
+}
+
+/* ✅ 테이블 디자인 */
+.container .table {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 1.5rem;
+    width: 100%;
+    border-radius: 8px;
+    border-collapse: collapse;
+    table-layout: fixed; /* ✅ 테이블 너비 균일하게 유지 */
+    page-break-inside: avoid; /* ✅ PDF 페이지 분리 방지 */
+}
+
+.container .table thead th {
+    background-color: #ccc;
+    color: #000;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.table td, .table th {
+    font-size: 13px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    align-content: center;
+    
+}
+.table td:first-child, .table th:first-child {
+    width: 8%;
+}
+
+
+/* ✅ 버튼 그룹 (PC에서 가로 정렬, 모바일에서 세로 정렬) */
+ /* ✅ 버튼 그룹을 세로 정렬 */
+ .btn-group {
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn-group a {
+    width: 100%;
+    text-align: center;
+}
+
+/* ✅ 모바일 반응형 */
+@media (max-width: 768px) {
+
+    
+    /* ✅ 컨테이너 폭을 유지하되 패딩 조정 */
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    /* ✅ 검색 바 모바일 최적화 */
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-container input {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 5px;
+        min-width: 60%;
+    }
+
+    .search-container button {
+        width: 100%;
+    }
+
+    /* ✅ 테이블을 카드 형태로 변환 (모바일에서 더 보기 좋게) */
+    .table {
+        display: block;
+    }
+
+    .table thead {
+        display: none; /* ✅ 테이블 헤더 숨김 */
+    }
+
+    .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+    .table td:first-child, .table th:first-child {
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: white;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .table td {
+        
+        text-align: left;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table td:last-child {
+        border-bottom: none;
+    }
+
+    /* ✅ 테이블 각 행에서 첫 번째 항목 (라벨) */
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--text-dark);
+    }
+
+    /* ✅ 버튼 그룹을 세로 정렬 */
+    .btn-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn-group a {
+        width: 100%;
+        text-align: center;
+    }
+}

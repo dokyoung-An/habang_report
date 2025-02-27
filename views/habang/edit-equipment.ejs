@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/main.css" rel="stylesheet" />
+    <link href="/css/equipment.css" rel="stylesheet"/>
+    <title>장비점검 보고서 수정</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <ul class="nav nav-tabs">
+            <a class="nav-link logo-link" href="/">
+              <img src="/image/logo_bl.png" alt="로고" class="logo-image" />
+            </a>
+            <li class="nav-item">
+              <a class="nav-link" href="/customer">
+                <i class="bi bi-house-door"></i> 고객정보등록
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/customer-list">
+                <i class="bi bi-list-check"></i> 보고서리스트
+              </a>
+            </li>
+          </ul>
+        
+    <div class="newcon">
+      <h2>📝 장비점검 보고서 수정</h2>
+        <form action="/update-equipment-report" method="POST">
+            <input type="hidden" name="reportId" value="<%= report && report._id ? report._id : '' %>" />
+
+
+            <!-- ✅ 1. 라돈 점검 -->
+            <h4>1. 라돈 점검 (RADON EYE)</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>정상</th>
+                        <th>기준치 초과</th>
+                        <th>Pci/L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% ["주방/거실", "가족욕실", "침실1(안방)"].forEach((item, index) => { %>
+                    <tr>
+                        <td><%= item %></td>
+                        <td><input type="checkbox" name="radon[<%= index %>][status]" <%= report.equipmentInspection.radon[index].status ? "checked" : "" %> /></td>
+                        <td><input type="checkbox" name="radon[<%= index %>][exceed]" <%= report.equipmentInspection.radon[index].exceed ? "checked" : "" %> /></td>
+                        <td><input type="text" name="radon[<%= index %>][value]" class="form-control" value="<%= report.equipmentInspection.radon[index].value %>" /></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+            <!-- ✅ 2. 포름알데히드 -->
+            <h4>2. 포름알데히드</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>정상</th>
+                        <th>기준치 초과</th>
+                        <th>HCHO (ppm)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% ["주방/거실", "가족욕실", "침실1(안방)"].forEach((item, index) => { %>
+                    <tr>
+                        <td><%= item %></td>
+                        <td><input type="checkbox" name="formaldehyde[<%= index %>][status]" <%= report.equipmentInspection.formaldehyde[index].status ? "checked" : "" %> /></td>
+                        <td><input type="checkbox" name="formaldehyde[<%= index %>][exceed]" <%= report.equipmentInspection.formaldehyde[index].exceed ? "checked" : "" %> /></td>
+                        <td><input type="text" name="formaldehyde[<%= index %>][value]" class="form-control" value="<%= report.equipmentInspection.formaldehyde[index].value %>" /></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+            <!-- ✅ 3. 열환상카메라 점검 -->
+            <h4>3. 열화상카메라 점검</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>정상</th>
+                        <th colspan="4">하자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% ["주방", "거실", "침실1(안방)", "침실2", "침실3", "드레스룸"].forEach((item, index) => { %>
+                    <tr>
+                        <td><%= item %></td>
+                        <td><input type="checkbox" name="equipment[<%= index %>][status]" <%= report.equipmentInspection.thermalCamera[index].status ? "checked" : "" %> /></td>
+                        <td><input type="checkbox" name="equipment[<%= index %>][defect]" value="곰팡이" <%= report.equipmentInspection.thermalCamera[index].defect?.includes("곰팡이") ? "checked" : "" %> /> 곰팡이</td>
+                        <td><input type="checkbox" name="equipment[<%= index %>][defect]" value="결로" <%= report.equipmentInspection.thermalCamera[index].defect?.includes("결로") ? "checked" : "" %> /> 결로</td>
+                        <td><input type="checkbox" name="equipment[<%= index %>][defect]" value="단열재 누락" <%= report.equipmentInspection.thermalCamera[index].defect?.includes("단열재 누락") ? "checked" : "" %> /> 단열재 누락</td>
+                        <td><input type="checkbox" name="equipment[<%= index %>][defect]" value="누수" <%= report.equipmentInspection.thermalCamera[index].defect?.includes("누수") ? "checked" : "" %> /> 누수</td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+            <!-- ✅ 4. 배관 육안 점검 -->
+            <h4>4. 배관 육안 점검</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>정상</th>
+                        <th colspan="4">하자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% ["가족욕실", "부부욕실", "발코니", "다용도실"].forEach((item, index) => { %>
+                    <tr>
+                        <td><%= item %></td>
+                        <td><input type="checkbox" name="pipeInspection[<%= index %>][status]" <%= report.equipmentInspection.pipeInspection[index].status ? "checked" : "" %> /></td>
+                        <td><input type="checkbox" name="pipeInspection[<%= index %>][defect]" value="파손" <%= report.equipmentInspection.pipeInspection[index].defect?.includes("파손") ? "checked" : "" %> /> 파손</td>
+                        <td><input type="checkbox" name="pipeInspection[<%= index %>][defect]" value="패자재" <%= report.equipmentInspection.pipeInspection[index].defect?.includes("패자재") ? "checked" : "" %> /> 패자재</td>
+                        <td><input type="checkbox" name="pipeInspection[<%= index %>][defect]" value="배관압힘" <%= report.equipmentInspection.pipeInspection[index].defect?.includes("배관압힘") ? "checked" : "" %> /> 배관압힘</td>
+                        <td><input type="checkbox" name="pipeInspection[<%= index %>][defect]" value="기타" <%= report.equipmentInspection.pipeInspection[index].defect?.includes("기타") ? "checked" : "" %> /> 기타</td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+
+            <!-- ✅ 5. 바닥 레이저 수평 -->
+            <h4>5. 바닥 레이저 수평</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>정상</th>
+                        <th>하자</th>
+                        <th>좌측 높이 (mm)</th>
+                        <th>우측 높이 (mm)</th>
+                        <th>차이</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% ["거실", "침실1", "침실2", "침실3"].forEach((item, index) => { %>
+                    <tr>
+                        <td><%= item %></td>
+                        <td><input type="checkbox" name="floor_level[<%= index %>][normal]" <%= report.equipmentInspection.floorLevel[index].normal ? "checked" : "" %> /></td>
+                        <td><input type="checkbox" name="floor_level[<%= index %>][defect]" <%= report.equipmentInspection.floorLevel[index].defect ? "checked" : "" %> /></td>
+                        <td><input type="text" name="floor_level[<%= index %>][left]" class="form-control" value="<%= report.equipmentInspection.floorLevel[index].left %>" /></td>
+                        <td><input type="text" name="floor_level[<%= index %>][right]" class="form-control" value="<%= report.equipmentInspection.floorLevel[index].right %>" /></td>
+                        <td><input type="text" name="floor_level[<%= index %>][difference]" class="form-control" value="<%= report.equipmentInspection.floorLevel[index].difference %>" /></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+           <!-- ✅ 6. 욕실 및 발코니 바닥 타일 배수 역류 점검 -->
+<h4>6. 욕실 및 발코니 바닥 타일 배수 역류 점검</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>정상</th>
+      <th>하자</th>
+      <th>세부내용</th>
+      <th>비고</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% ["가족욕실", "부부욕실", "발코니", "다용도실"].forEach((item, index) => { %>
+    <tr>
+      <!-- ✅ 항목명 -->
+      <td><%= item %></td>
+
+      <!-- ✅ 정상 체크박스 -->
+      <td>
+        <input type="checkbox" name="drain_check[<%= index %>][normal]" 
+          <%= report.equipmentInspection?.drainInspection?.[index]?.normal ? "checked" : "" %> />
+      </td>
+
+      <!-- ✅ 하자 체크박스 -->
+      <td>
+        <input type="checkbox" name="drain_check[<%= index %>][defect]" 
+          <%= report.equipmentInspection?.drainInspection?.[index]?.defect ? "checked" : "" %> />
+      </td>
+
+      <!-- ✅ 세부내용 입력 -->
+      <td>
+        <input type="text" name="drain_check[<%= index %>][detail]" class="form-control" 
+          value="<%= report.equipmentInspection?.drainInspection?.[index]?.detail || "" %>" />
+      </td>
+
+      <!-- ✅ 비고 입력 -->
+      <td>
+        <input type="text" name="drain_check[<%= index %>][note]" class="form-control" 
+          value="<%= report.equipmentInspection?.drainInspection?.[index]?.note || "" %>" />
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+
+            <button type="submit" class="btn btn-success">📁 수정 완료</button>
+        </form>
+    </div>
+</div>
+
+    <script>
+       document.querySelector("form").addEventListener("submit", function (e) {
+    let reportId = document.querySelector("input[name='reportId']").value;
+    if (!reportId || reportId.trim().length !== 24) {
+      alert("❌ 보고서 ID가 유효하지 않습니다!");
+      e.preventDefault();
+    }
+  });
+    </script>
+</body>
+</html>

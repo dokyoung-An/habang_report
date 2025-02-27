@@ -1,0 +1,482 @@
+
+
+/* ✅ 제목 스타일 */
+.container h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff; /* 파란색 하이라이트 */
+    padding-bottom: 5px;
+}
+
+.new{
+    margin-top: 5rem;
+}
+
+.newcon {
+    padding:1.5rem;
+    box-sizing: border-box;
+}
+
+/* ✅ 삭제 버튼 */
+.delete {
+    display: flex;
+    justify-content: center;
+}
+.mt-2 {  
+    margin: 1.2rem 0 2rem 0 !important;
+    width: 99.8%;
+}
+
+.mb-3 .content{
+    margin-top: 1rem;
+}
+
+/* ✅ 테이블 공통 스타일 */
+.container .table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; 
+    page-break-inside: avoid; /* ✅ PDF 페이지 분리 방지 */
+}
+
+.customer-detail {
+    margin-top: 4rem;
+}
+
+/* ✅ 테이블 헤더 스타일 */
+.container .customer-detail .table tbody th {
+    background-color: #ccc;
+    color: #000;
+    font-size: 14px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    width: 30%;
+}
+
+/* ✅ 테이블 바디 스타일 */
+.container .table tbody td {
+    font-size: 13px;
+    padding: 6px 20px;
+   
+    border: 1px solid #ddd;
+}
+
+
+
+
+/*✅ 테이블 바디 스타일 */
+
+.pdf {
+    width: 210mm;
+    height: 297mm;
+    margin: 20px auto;
+    padding: 20mm;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    box-sizing: border-box;
+    display: none;
+    
+}
+/* ✅ 표지 레이아웃 */
+
+.pdf .customer h2 {
+    border-bottom: none;
+    border-top: 3px solid #0056b3;
+    text-align: end;
+    font-size: 1.8rem;
+    padding-top: 0.8rem;
+    
+}
+
+/* ✅ 테이블 전체 크기 및 위치 */
+.pdf .customer table {
+    width: 300px;
+    position: absolute;
+    right: 0.3%;
+    height: auto; /* ✅ 높이를 내용에 맞게 자동 조절 */
+    border-collapse: collapse; /* ✅ 테두리 겹침 제거 */
+    scale: 0.6;
+    top:10%;
+    
+}
+
+/* ✅ 테이블 셀 공통 스타일 */
+.pdf .customer table th,
+.pdf .customer table td {
+    font-size: 1rem;
+    padding: 6px 10px; /* ✅ 내부 여백 조절 */
+    height: 40px; /* ✅ 세로 크기 줄임 */
+    vertical-align: middle; /* ✅ 세로 중앙 정렬 */
+    border-color: #fff;
+    box-shadow: none;
+}
+
+/* ✅ th는 왼쪽 정렬 */
+.pdf .customer table th {
+    text-align: left;
+    width: 40%; /* ✅ th의 너비 조정 */
+   
+}
+
+/* ✅ td는 가로·세로 중앙 정렬 */
+.pdf .customer table td {
+    text-align: center;
+    
+}
+
+
+
+/* ✅ 메인 제목 중앙 정렬 */
+.pdf .report {
+    position: absolute;
+    top: 45%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    text-align: right;
+    width: 50%;
+}
+
+.pdf .report h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.pdf .report p {
+    font-size: 1rem;
+    color: #888;
+    width:100%;
+    margin-top: -1rem;
+    color: #888;
+}
+
+/* ✅ 배경 이미지 크기 조정 */
+.pdf .bg_image img {
+    width: 70%;
+    opacity: 0.8;
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+}
+
+.pdf .image {
+    position: absolute;
+    bottom:1.5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.pdf .image img{
+    width: 40px;
+    height: 40px;
+}
+
+/* ✅ 표 크기 및 정렬 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+}
+
+.table thead th {
+    background-color: #ccc;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.table tbody td {
+    text-align: center;
+    padding: 6px;
+    font-size: 13px;
+    border: 1px solid #ddd;
+}
+
+/* ✅ 표 내용 너비 조정 */
+.equipment-report .table th {
+    width: 25%;
+}
+
+.equipment-report .table td {
+    width: 75%;
+}
+
+
+
+
+
+/* ✅ 장비점검 보고서 전체 스타일 */
+.equipment-report {
+    width: 100%;
+    margin-top: 20px;
+    page-break-before: always; /* 새 페이지에서 시작 */
+}
+
+/* ✅ 제목 스타일 */
+.equipment-report h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+/* ✅ 각 항목 제목 */
+.equipment-report h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0056b3;
+    margin-top: 40px;
+    border-left: 4px solid #007bff;
+    padding-left: 8px;
+}
+
+/* ✅ 테이블 공통 스타일 */
+.equipment-report .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
+    page-break-inside: avoid; /* ✅ 페이지 내 분리 방지 */
+}
+
+/* ✅ 테이블 헤더 스타일 */
+.equipment-report .table thead th {
+    background-color: #f1f1f1;
+    color: #000;
+    font-size: 14px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* ✅ 테이블 바디 스타일 */
+.equipment-report .table tbody td {
+    font-size: 13px;
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* ✅ 표 설명 부분 */
+.equipment-report .explain {
+    margin: 20px 0 40px 0;
+}
+
+.equipment-report .explain h4 {
+    font-size: 14px;
+    color: #0056b3;
+}
+
+.equipment-report .explain li {
+    list-style: square;
+    margin-left: 20px;
+    font-size: 13px;
+}
+
+
+
+/* ✅ 전체 컨테이너 */
+.inspection-report{
+    margin-top: 50px;
+    width: 100%;
+   
+}
+
+/* ✅ 제목 스타일 */
+.inspection-report h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff; /* 파란색 하이라이트 */
+    padding-bottom: 5px;
+    
+}
+
+.report-entry {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-sizing: border-box;
+    table-layout: fixed; /* ✅ 테이블 크기 균등 유지 */
+   
+}
+
+/* ✅ 각 항목 제목 */
+.inspection-report h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0056b3;
+    margin-top: 15px;
+    border-left: 4px solid #007bff;
+    padding-left: 8px;
+}
+
+.image-container {
+    padding: 10px;
+    width: 100%;  /* ✅ 전체 컨테이너의 60% 차지 */
+    height: 100%; /* ✅ 높이를 report-entry에 맞게 자동 조정 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden; /* ✅ 넘치는 부분 제거 */
+}
+
+/* ✅ 개별 이미지 - 가로 모드 강제 */
+.inspection-image {
+    width: 100%; /* ✅ 가로로 두 개 정렬 */
+    aspect-ratio: 16 / 9; /* ✅ 강제로 가로 모드 */
+    height: 100%;
+    border: 1px solid #ddd;
+    display: block;
+    object-fit: cover; /* ✅ 비율 유지하면서 꽉 채우기 */
+    object-position: center; /* ✅ 중앙 정렬 */
+   
+}
+
+/* ✅ 세로로 찍힌 이미지 강제 회전 */
+.inspection-image[style*="rotate"] {
+    transform: rotate(0deg) !important; /* ✅ 세로 회전 제거 */
+}
+
+
+/* ✅ 오른쪽 정보 테이블 */
+.info-section {
+    padding: 15px;
+    width: 40%;
+    vertical-align: top; /* ✅ 위쪽 정렬 */
+}
+
+/* ✅ 정보 테이블 내부 스타일 */
+.info-section .table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* ✅ 균일한 크기 유지 */
+    height: 100%; /* ✅ 테이블 높이 확장 */
+}
+
+/* ✅ 테이블 헤더 스타일 */
+.info-section .table th {
+    background-color: #ccc;
+    color: #000;
+    text-align: center;
+    font-size: 14px; /* ✅ 글씨 키움 */
+    padding: 8px;
+    width: 30%;
+    border: 1px solid #ddd;
+}
+
+.container .table tbody td {
+   vertical-align:middle;  
+   word-break:break-word;
+     
+ }
+
+.mobile {
+    display: none;
+}
+
+
+/* ✅ 다운로드 버튼 컨테이너 */
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+
+}
+
+/* ✅ 개별 버튼 스타일 */
+.download-buttons a {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* ✅ PDF 버튼 스타일 */
+.download-buttons .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+.download-buttons .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* ✅ 이미지 다운로드 버튼 스타일 */
+.download-buttons .btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #28a745;
+}
+
+.download-buttons .btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+
+@media screen and (max-width: 768px) {
+    html body {
+        padding: 0 15px;
+    }
+    .pdf {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        border: none;
+        page-break-after: always;
+        display: none;
+    }
+
+    .inspection-report {
+        display: none;
+    }
+    .mobile {
+        display: block;
+        
+    }
+
+    .report-entry {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 10px;
+        align-items: center;
+    }
+    .info-section {
+        width: 100%;
+        vertical-align: top; /* ✅ 위쪽 정렬 */
+        margin-top: 10px;
+    }
+    .download-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .download-buttons a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+}

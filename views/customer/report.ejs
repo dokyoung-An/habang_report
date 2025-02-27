@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet" />
+    <link href="/css/report.css" rel="stylesheet"> 
+    <title>점검 보고서</title>
+</head>
+<body>
+  
+  
+    <div class="container mt-4">
+      <!-- 상단 네비게이션 -->
+  <ul class="nav nav-tabs">
+    <a class="nav-link logo-link" href="/">
+        <img src="/image/logo_bl.png" alt="로고" class="logo-image">
+    </a>
+    <li class="nav-item">
+        <a class="nav-link active" href="/customer">
+            <i class="bi bi-house-door"></i> 고객정보등록
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/customer-list">
+            <i class="bi bi-list-check"></i> 보고서리스트
+        </a>
+    </li>
+</ul>
+     
+        <div class="customer-detail">
+            <h2>■ 고객 정보 상세</h2>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr><th>점검 날짜</th><td><%= report.date %></td></tr>
+                    <tr><th>아파트명</th><td><%= report.apartmentName %></td></tr>
+                    <tr><th>동</th><td><%= report.dong %></td></tr>
+                    <tr><th>호수</th><td><%= report.home %></td></tr>
+                    <tr><th>고객명</th><td><%= report.customerName %></td></tr>
+                    <tr><th>전화번호</th><td><%= report.phone %></td></tr>
+                </tbody>
+            </table>
+        </div>
+<!-- ✅ PDF 다운로드 버튼 -->
+    <!-- ✅ PDF & 이미지 다운로드 버튼 -->
+    <div class="download-buttons">
+      <a href="/download-pdf/<%= report._id %>" class="btn btn-primary">
+        📄 PDF 다운로드
+    </a>
+    <a href="/download-images/<%= report._id %>" class="btn btn-success">
+        📷 이미지 다운로드
+    </a>
+    <a href="/edit/<%= report._id %>" class="btn btn-success">
+      📷 육안점검표 수정하기
+    </a>
+    <a href="/edit-equipment/<%= report._id %>" class="btn btn-success">
+      📷 장비점검표 수정하기
+    </a>
+    <a href="/after/<%= report._id %>" class="btn btn-success">
+      📷 후점검 보고서 작성하기 
+    </a>
+    </div>
+    
+    <!-- 보고서 작성란 -->
+        <div class = "pdf">         
+          <div class="customer">
+            <h2>HABANG INSPECTION REPORT</h2>
+            <table class="report-info">
+              <tbody>
+                  <tr>
+                      <th>점 검 날 짜</th>
+                      <td><%= report.date %></td>
+                  </tr>
+                  <tr>
+                      <th>점 검 자</th>
+                      <td><%= report.customerName %></td>
+                  </tr>
+                  <tr>
+                      <th>연 락 처</th>
+                      <td><%= report.phone %></td>
+                  </tr>
+                  <tr>
+                      <th>점 검 장 소</th>
+                      <td><%= report.apartmentName %><br> <%= report.dong %>동 <%= report.home %>호</td>
+                  </tr>
+              </tbody>
+          </table>
+          
+          <div class="bg_image">
+            <img src="http://localhost:8080/image/bg_img.png">
+          </div>
+          </div>
+         
+         
+          <div class="report">
+            <h1>사전점검<br>결과보고서</h1>
+            <p>Preliminary Inspection Results Reprot</p>
+          </div>
+          <div class="image">
+            <img src="http://localhost:8080/image/logo_bl.png">
+          </div>
+        </div>
+  
+         <!-- ✅ 장비점검 보고서 추가 -->
+       <% if (report.equipmentInspection) { %>
+        <div class="equipment-report">
+          <h2>■ 장비점검 보고서</h2>
+          
+          <!-- ✅ 1. 라돈 점검 -->
+          <h4>1. 라돈 점검 (RADON EYE)</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th>기준치 초과</th>
+                <th>Pci/L</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.equipmentInspection.radon.forEach((item, index) => { %>
+                <tr>
+                  <td><%= item.location %></td>
+                  <td><%= item.status ? "✔" : "" %></td>
+                  <td><%= item.exceed ? "✔" : "" %></td>
+                  <td><%= item.value || "-" %> Pci/L</td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <div class="explain">
+          <div>
+            <h4>✅ Pci/L 기준치</h4>
+            <ul>
+            <li>1.3Pci/L 일반 가정집 실내환경 기준치</li>
+            <li>2.7Pci/L WHO 다중 이용시설 실내 공기질 기준치</li>
+            <li>4.0Pci/L 우리나라 다중 이용시설 실내 공기질 기준치(하방 기준치)</li>
+          </ul>
+          </div>
+          <div>
+            <h4>✅ Bq/m<sup>2</sup>기준치</h4>
+            <ul>
+            <li>48.00 Bq/m<sup>2</sup> 일반 가정집 실내환경 기준치 </li>
+            <li>100.00 Bq/m<sup>2</sup> WHO 다중  이용시설 실내 공기질 기준치</li>
+            <li>148.00 Bq/m<sup>2</sup> 우리나라 다중 이용시설  실내 공기질  기준치(하방 기준치)</li>
+          </ul>
+          </div>
+          <div>
+            <h4>✅ 라돈이란?</h4>
+            <ul>
+            <li>라돈은 무색무취의 자연방사능 물질로 세계보건기구(WHO)에서 1급
+              발암물질로 규정하는 흡연 다음으로 폐암을 발생시키는 주요 원인으로
+              규정하고 있습니다. </li>
+          </ul>
+          </div>
+        </div>
+
+          <!-- ✅ 2. 포름알데히드 점검 -->
+          <h4>2. 포름알데히드</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th>기준치 초과</th>
+                <th>HCHO (ppm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.equipmentInspection.formaldehyde.forEach((item, index) => { %>
+                <tr>
+                  <td><%= item.location %></td>
+                  <td><%= item.status ? "✔" : "" %></td>
+                  <td><%= item.exceed ? "✔" : "" %></td>
+                  <td><%= item.value || "-" %> ppm</td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <div class="explain">
+            <div>
+              <h4>✅ HCHO(포름알데히드) 기준치</h4>
+              <ul>
+              <li>0.01ppm 정상</li>
+              <li>0.08ppm 우리나라 다중 이용시설 실내 공기질 기준치(12.01.01)& WHO 기준</li>
+              <li>0.16ppm 우리나라 신축 공동 주택권고 기준치</li>
+              <li>0.50ppm 독의 자극이 시작되는 최저치 산업위생학회 허용농도(공장 등의 최고치)</li>
+            </ul>
+            </div>
+          </div>
+
+          <!-- ✅ 3. 열화상카메라 점검 -->
+          <h4>3. 열화상카메라 점검</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th colspan="4">하자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.equipmentInspection.thermalCamera.forEach((item, index) => { %>
+                <tr>
+                  <td><%= item.location %></td>
+                  <td><%= item.status ? "✔" : "" %></td>
+                  <td colspan="4"><%= item.defect ? item.defect.join(", ") : "-" %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <p class="explain-cam">* 보일러  가동불가(난방 코일 확인 불가)</p>
+          <!-- ✅ 4. 배관 육안 점검 -->
+          <h4>4. 배관 육안 점검</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th colspan="4">하자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.equipmentInspection.pipeInspection.forEach((item, index) => { %>
+                <tr>
+                  <td><%= item.location %></td>
+                  <td><%= item.status ? "✔" : "" %></td>
+                  <td colspan="4"><%= item.defect ? item.defect.join(", ") : "-" %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+
+          <!-- ✅ 5. 바닥 레이저 수평 -->
+          <h4>5. 바닥 레이저 수평</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th>하자</th>
+                <th>좌측 높이 (mm)</th>
+                <th>우측 높이 (mm)</th>
+                <th>차이</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.equipmentInspection.floorLevel.forEach((item, index) => { %>
+                <tr>
+                  <td><%= item.location %></td>
+                  <td><%= item.normal ? "✔" : "" %></td>
+                  <td><%= item.defect ? "✔" : "" %></td>
+                  <td><%= item.left || "-" %> mm</td>
+                  <td><%= item.right || "-" %> mm</td>
+                  <td><%= item.difference || "-" %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <div class="explain">
+            <div>
+              <h4>✅ 바닥 단차 기준치치</h4>
+              <ul>
+              <li>바닥 수평 허용 오차 범위 +- 10mm 이내(하방 기준)</li>
+           
+            </ul>
+            </div>
+          </div>
+          <!-- ✅ 6. 욕실 및 발코니 배수 역류 점검 -->
+          <h4>6. 욕실 및 발코니 바닥 타일 배수 역류 점검</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th>하자</th>
+                <th>세부내용</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% report.equipmentInspection.drainInspection.forEach((item, index) => { %>
+                <tr>
+                  <td><%= item.location %></td>
+                  <td><%= item.normal ? "✔" : "" %></td>
+                  <td><%= item.defect ? "✔" : "" %></td>
+                  <td><%= item.detail || "-" %></td>
+                  <td><%= item.note || "-" %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+ 
+        <!-- ✅ 육안 점검 보고서 -->
+     <!-- ✅ 육안 점검 보고서 -->
+<div class="inspection-report">
+  <h2>■ 육안 점검 보고서</h2>
+
+  <% if (report.visualInspection && report.visualInspection.length > 0) { %>
+      <% report.visualInspection.forEach((inspection, index) => { %>
+          <table class="report-entry">
+              <tr>
+                  <!-- ✅ 왼쪽 이미지 2개 -->
+                  <td class="image-container">
+                      <table>
+                          <tr>
+                              <% for(let i = 0; i < (inspection.images || []).length; i += 2) { %>
+                                  <td>
+                                      <img src="http://localhost:8080/upload/<%= inspection.images[i] %>" class="inspection-image">
+                                  </td>
+                                  <% if (inspection.images[i+1]) { %>
+                                  <td>
+                                      <img src="http://localhost:8080/upload/<%= inspection.images[i+1] %>" class="inspection-image">
+                                  </td>
+                                  <% } %>
+                              <% } %>
+                          </tr>
+                      </table>
+                  </td>
+
+                  <!-- ✅ 오른쪽 정보 테이블 -->
+                  <td class="info-section">
+                      <table class="table table-bordered">
+                        <tr><th>위치</th><td><%= Array.isArray(inspection.location) ? inspection.location.join("") : inspection.location %></td></tr>
+                        <tr><th>공종</th><td><%= Array.isArray(inspection.sector) ? inspection.sector.join("") : inspection.sector %></td></tr>
+                        <tr><th>세부공종</th><td><%= Array.isArray(inspection.specific) ? inspection.specific.join("") : inspection.specific %></td></tr>
+                        <tr><th>하자내용</th><td><%= Array.isArray(inspection.content) ? inspection.content.join("") : inspection.content %></td></tr>
+                        <tr><th>비고</th><td><%= Array.isArray(inspection.extra) ? inspection.extra.join("") : inspection.extra %></td></tr>                        
+                      </table>
+                  </td>
+              </tr>
+          </table>
+      <% }); %>
+  <% } else { %>
+      <p class="text-center text-muted">📌 등록된 점검 데이터가 없습니다.</p>
+  <% } %>
+</div>
+
+
+    <!-- ✅ 육안 점검 보고서 모바일 버전 -->
+    <div class="inspection-report mobile">
+      <h2>■ 육안 점검 보고서</h2>
+
+      <% if (report.visualInspection && report.visualInspection.length > 0) { %>
+          <% report.visualInspection.forEach((inspection, index) => { %>
+          <div class="report-entry">
+              <!-- ✅ 이미지 2장 가로 정렬 -->
+              <div class="image-container">
+                  <% for(let i = 0; i < inspection.images.length; i += 2) { %>
+                      <div class="image-box">
+                          <img src="http://localhost:8080/upload/<%= inspection.images[i] %>" class="inspection-image">
+                      </div>
+                      <% if (inspection.images[i+1]) { %>
+                      <div class="image-box">
+                          <img src="http://localhost:8080/upload/<%= inspection.images[i+1] %>" class="inspection-image">
+                      </div>
+                      <% } %>
+                  <% } %>
+              </div>
+
+              <!-- ✅ 이미지 아래 정보 테이블 -->
+              <div class="info-section">
+                  <table class="table table-bordered">
+                      <tr><th>NO</th><td><%= index + 1 %></td></tr>
+                      <tr><th>위치</th><td><%= inspection.location %></td></tr>
+                      <tr><th>공종</th><td><%= inspection.sector %></td></tr>
+                      <tr><th>세부공종</th><td><%= inspection.specific %></td></tr>
+                      <tr><th>하자내용</th><td><%= inspection.content %></td></tr>
+                      <tr><th>비고</th><td><%= inspection.extra %></td></tr>
+                  </table>             
+              </div>
+          </div>
+          <% }); %>
+          <% } else { %>
+              <p class="text-center text-muted">📌 등록된 점검 데이터가 없습니다.</p>
+          <% } %>
+  </div>
+
+   
+</body>
+</html>

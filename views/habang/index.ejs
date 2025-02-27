@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보고서 관리 시스템</title>
+    <link href="/css/main.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .main-button {
+            width: 280px;
+            height: 200px;
+            transition: transform 0.2s;
+        }
+        .main-button:hover {
+            transform: translateY(-5px);
+        }
+        .icon-large {
+            font-size: 3rem;
+        }
+        .logo-container {
+            height: 100px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+        <!-- ✅ 로고 영역 -->
+        <div class="logo-container d-flex align-items-center justify-content-center">
+            <img src="/image/logo_bl.png" alt="회사 로고" class="img-fluid" style="max-height: 80%;">
+        </div>
+
+        <!-- ✅ 버튼 영역 -->
+        <div class="d-flex gap-4 justify-content-center button-container flex-wrap">
+            <!-- 보고서 작성 버튼 -->
+            <a href="/customer" class="main-button btn btn-primary d-flex flex-column align-items-center justify-content-center text-white text-decoration-none">
+                <i class="bi bi-file-earmark-text icon-large mb-3"></i>
+                <span class="fs-4">보고서 작성하기</span>
+            </a>
+
+            <!-- 보고서 보기 버튼 -->
+            <a href="/customer-list" class="main-button btn btn-outline-primary d-flex flex-column align-items-center justify-content-center text-decoration-none">
+                <i class="bi bi-search icon-large mb-3"></i>
+                <span class="fs-4">보고서 보기</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

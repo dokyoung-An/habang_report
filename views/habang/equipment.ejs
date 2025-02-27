@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="/css/main.css" rel="stylesheet" />
+    <link href="/css/report.css" rel="stylesheet"> 
+    <link href="/css/equipment.css" rel="stylesheet"/>
+    <title>장비점검 보고서</title>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <ul class="nav nav-tabs">
+        <a class="nav-link logo-link" href="/">
+            <img src="/image/logo_bl.png" alt="로고" class="logo-image">
+        </a>
+        <li class="nav-item">
+            <a class="nav-link" href="/customer">
+                <i class="bi bi-house-door"></i> 고객정보등록
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/customer-list">
+                <i class="bi bi-list-check"></i> 보고서리스트
+            </a>
+        </li>
+    </ul>
+    <div class="newcon">
+      <h2>■ 장비점검 보고서</h2>
+      <form action="/equipment-report" method="POST">
+        <input type="hidden" name="reportId" value="<%= reportId %>" />
+
+        <!-- 라돈 검사 -->
+        <h4>1. 라돈 점검 (RADON EYE)</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>정상</th>
+              <th>기준치 초과</th>
+              <th>Pci/L</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>주방/거실</td>
+              <td>
+                <input type="checkbox" name="radon[0][status]" value="정상" />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="radon[0][exceed]"
+                  value="기준치 초과"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="radon[0][value]"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>가족욕실</td>
+              <td>
+                <input type="checkbox" name="radon[1][status]" value="정상" />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="radon[1][exceed]"
+                  value="기준치 초과"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="radon[1][value]"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>침실1(안방)</td>
+              <td>
+                <input type="checkbox" name="radon[2][status]" value="정상" />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="radon[2][exceed]"
+                  value="기준치 초과"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="radon[2][value]"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 폼알데히드 검사 -->
+        <h4>2. 포름알데히드</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>정상</th>
+              <th>기준치 초과</th>
+              <th>HCHO (ppm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>주방/거실</td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="formaldehyde[0][status]"
+                  value="정상"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="formaldehyde[0][exceed]"
+                  value="기준치 초과"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="formaldehyde[0][value]"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>가족욕실</td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="formaldehyde[1][status]"
+                  value="정상"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="formaldehyde[1][exceed]"
+                  value="기준치 초과"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="formaldehyde[1][value]"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>침실1(안방)</td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="formaldehyde[2][status]"
+                  value="정상"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  name="formaldehyde[2][exceed]"
+                  value="기준치 초과"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="formaldehyde[2][value]"
+                  class="form-control"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <h3>3. 열환상카메라 점검</h3>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th colspan="4">하자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% const items = ["주방", "거실", "침실1(안방)", "침실2", "침실3",
+              "드레스룸"]; %> <% items.forEach((item, index) => { %>
+              <tr>
+                <td><%= item %></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="equipment[<%= index %>][status]"
+                    value="정상"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="equipment[<%= index %>][defect]"
+                    value="곰팡이"
+                  />
+                  곰팡이
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="equipment[<%= index %>][defect]"
+                    value="결로"
+                  />
+                  결로
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="equipment[<%= index %>][defect]"
+                    value="단열재 누락"
+                  />
+                  단열재 누락
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="equipment[<%= index %>][defect]"
+                    value="누수"
+                  />
+                  누수
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>4. 배관 육안 점검</h3>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th colspan="4">하자</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% const pipeItems = ["가족욕실", "부부욕실", "발코니",
+              "다용도실"]; %> <% pipeItems.forEach((item, index) => { %>
+              <tr>
+                <td><%= item %></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="pipeInspection[<%= index %>][status]"
+                    value="정상"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="pipeInspection[<%= index %>][defect]"
+                    value="파손"
+                  />
+                  파손
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="pipeInspection[<%= index %>][defect]"
+                    value="폐자재"
+                  />
+                  폐자재
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="pipeInspection[<%= index %>][defect]"
+                    value="배관막힘"
+                  />
+                  배관막힘
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="pipeInspection[<%= index %>][defect]"
+                    value="기타"
+                  />
+                  기타
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>5. 바닥 레이저 수평</h3>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th>하자</th>
+                <th>좌측 높이 (mm)</th>
+                <th>우측 높이 (mm)</th>
+                <th>차이</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>거실</td>
+                <td><input type="checkbox" name="floor_level[0][normal]" /></td>
+                <td><input type="checkbox" name="floor_level[0][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[0][left]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[0][right]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[0][difference]"
+                    class="form-control"
+                    placeholder="차이"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>침실1</td>
+                <td><input type="checkbox" name="floor_level[1][normal]" /></td>
+                <td><input type="checkbox" name="floor_level[1][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[1][left]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[1][right]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[1][difference]"
+                    class="form-control"
+                    placeholder="차이"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>침실2</td>
+                <td><input type="checkbox" name="floor_level[2][normal]" /></td>
+                <td><input type="checkbox" name="floor_level[2][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[2][left]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[2][right]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[2][difference]"
+                    class="form-control"
+                    placeholder="차이"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>침실3</td>
+                <td><input type="checkbox" name="floor_level[3][normal]" /></td>
+                <td><input type="checkbox" name="floor_level[3][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[3][left]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[3][right]"
+                    class="form-control"
+                    placeholder="mm"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="floor_level[3][difference]"
+                    class="form-control"
+                    placeholder="차이"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>6. 욕실 및 발코니 바닥 타일 배수 역물매 점검</h3>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상</th>
+                <th>하자</th>
+                <th>세부내용 (하자내용)</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>가족욕실</td>
+                <td><input type="checkbox" name="drain_check[0][normal]" /></td>
+                <td><input type="checkbox" name="drain_check[0][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[0][detail]"
+                    class="form-control"
+                    placeholder="세부내용 입력"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[0][note]"
+                    class="form-control"
+                    placeholder="비고 입력"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>부부욕실</td>
+                <td><input type="checkbox" name="drain_check[1][normal]" /></td>
+                <td><input type="checkbox" name="drain_check[1][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[1][detail]"
+                    class="form-control"
+                    placeholder="세부내용 입력"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[1][note]"
+                    class="form-control"
+                    placeholder="비고 입력"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>발코니</td>
+                <td><input type="checkbox" name="drain_check[2][normal]" /></td>
+                <td><input type="checkbox" name="drain_check[2][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[2][detail]"
+                    class="form-control"
+                    placeholder="세부내용 입력"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[2][note]"
+                    class="form-control"
+                    placeholder="비고 입력"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>다용도실</td>
+                <td><input type="checkbox" name="drain_check[3][normal]" /></td>
+                <td><input type="checkbox" name="drain_check[3][defect]" /></td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[3][detail]"
+                    class="form-control"
+                    placeholder="세부내용 입력"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="drain_check[3][note]"
+                    class="form-control"
+                    placeholder="비고 입력"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button type="submit" class="btn btn-primary">장비점검 등록</button>
+      </form>
+    </div>
+  </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const checkboxes = document.querySelectorAll("input[type='checkbox']");
+        const submitButton = document.querySelector("button[type='submit']");
+    
+        // ✅ 엔터 키로 체크박스 선택
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+              event.preventDefault(); // 기본 엔터 동작 방지
+              checkbox.checked = !checkbox.checked; // 체크 상태 토글
+            }
+          });
+        });
+    
+        // ✅ 엔터 키로 폼 제출 방지
+        form.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+            event.preventDefault(); // 기본 폼 제출 방지
+          }
+        });
+    
+        // ✅ 폼 제출 시 모든 테이블 검사
+        form.addEventListener("submit", function (event) {
+          const tables = document.querySelectorAll(".table");
+          let isValid = true;
+    
+          tables.forEach((table) => {
+            const checkboxes = table.querySelectorAll("input[type='checkbox']");
+            const isChecked = Array.from(checkboxes).some((checkbox) => checkbox.checked);
+    
+            if (!isChecked) {
+              isValid = false;
+              table.classList.add("table-warning"); // 경고 스타일 추가
+            } else {
+              table.classList.remove("table-warning");
+            }
+          });
+    
+          if (!isValid) {
+            event.preventDefault(); // 제출 방지
+            alert("🚨 모든 테이블에서 최소 하나의 항목을 체크해야 합니다!");
+          }
+        });
+      });
+    </script>
+    
+  </body>
+</html>

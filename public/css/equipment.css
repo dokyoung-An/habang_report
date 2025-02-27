@@ -1,0 +1,155 @@
+.newcon {
+    padding:1.5rem;
+    box-sizing: border-box;
+}
+
+.btn-success {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+
+/* ✅ 제목 스타일 */
+.container h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff; /* 파란색 하이라이트 */
+    padding-bottom: 5px;
+    margin: 0rem 0 2rem 0;
+        
+}
+
+/* ✅ 각 항목 제목 */
+.container h4,
+.container h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0056b3;
+    margin-top: 15px;
+    border-left: 4px solid #007bff;
+    padding-left: 8px;
+}
+.container h3 {
+    margin-top: 2rem;
+}
+
+/* ✅ 테이블 공통 스타일 */
+.container .table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* ✅ 테이블 너비 균일하게 유지 */
+    page-break-inside: avoid; /* ✅ PDF 페이지 분리 방지 */
+   
+}
+
+/* ✅ 테이블 헤더 스타일 */
+.container .table thead th {
+    background-color: #ccc;
+    color: #000;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* ✅ 테이블 바디 스타일 */
+.container .table tbody td {
+    font-size: 13px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* ✅ 체크박스 정렬 */
+/* ✅ 테이블 내부의 체크박스를 세로 가운데 정렬 */
+.table td, 
+.table th {
+  vertical-align: middle !important; /* ✅ 세로 가운데 정렬 */
+  text-align: center; /* ✅ 가로 가운데 정렬 */
+}
+
+.container .table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0 auto;
+    display: block;
+    margin: 0; /* 여백 제거 */
+    display: block; /* 블록 요소로 변경 */
+    position: relative; /* 위치 조정 */
+    left: 50%; /* 중앙 정렬 */
+    transform: translateX(-50%); /* 가로 정렬 보정 */
+}
+
+/* ✅ 입력 필드 스타일 */
+.container .table input[type="text"] {
+    width: 100%;
+    padding: 6px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* ✅ 표 내용 정렬 */
+.container .table th,
+.container .table td {
+    text-align: center;
+}
+
+
+
+
+
+/* ✅ 버튼 스타일 */
+.container .btn-primary {
+    display: block;
+    width: 200px;
+    margin: 50px auto;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.container .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* ✅ 반응형 디자인 */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    /* ✅ 테이블 스크롤 가능하도록 설정 */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /* ✅ 입력 필드 크기 조정 */
+    .container .table input[type="text"] {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    /* ✅ 체크박스 크기 조정 */
+    .container .table input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* ✅ 버튼 크기 조정 */
+    .container .btn-primary {
+        width: 100%;
+        font-size: 13px;
+        padding: 12px;
+    }
+}

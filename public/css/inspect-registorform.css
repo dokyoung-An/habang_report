@@ -1,0 +1,164 @@
+/* ✅ 제목 스타일 */
+.container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #007bff; /* 파란색 하이라이트 */
+  padding-bottom: 5px;
+  margin: 4rem 0 2rem 0;
+}
+
+/* ✅ 입력 폼 디자인 */
+.page-title {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 4rem;
+}
+
+.form-container {
+  max-width: 900px;
+  margin: 1rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  margin-bottom: 2rem;
+}
+
+.text-center {
+  margin-top: 2rem;
+}
+
+.hidden-file-input {
+  display: none; /* 파일 선택 버튼 숨김 */
+}
+
+.col-md-4 {
+  margin-top: 1rem;
+}
+
+.mb-3 {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+/* ✅ 버튼 스타일 */
+.container .btn-primary {
+  display: block;
+  width: 200px;
+  margin: 50px auto;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.container .btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* ✅ 하자 폼 디자인 */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group .col-md-4,
+.form-group .col-md-12 {
+  flex: 1;
+}
+
+.form-group .form-select,
+.form-group .form-control {
+  width: 100%;
+}
+
+/* ✅ 비고란 크기 */
+.form-group textarea[name="extra[]"] {
+  height: 4.8rem; /* 세로 길이 1.2배 */
+}
+
+/* ✅ 이미지 미리보기 */
+.img-container {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ✅ 가로로 2장씩 이미지 배치 */
+.image-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.image-row .col-md-6 {
+  flex: 1;
+}
+
+/* ✅ 반응형 디자인 */
+@media (max-width: 768px) {
+  body {
+    padding-top: 1vh;
+  }
+
+  .form-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ✅ 하자 입력 필드 한 줄씩 */
+  .form-group {
+    flex-direction: column;
+  }
+
+  .form-group .col-md-4,
+  .form-group .col-md-12 {
+    width: 100%;
+  }
+
+  /* ✅ 하자 사진 2개 유지하면서 축소 */
+  .image-row {
+    flex-wrap: wrap;
+  }
+
+  .image-row .col-md-6 {
+    width: 48%;
+  }
+
+  .preview-image {
+    width: 100%;
+    height: auto;
+  }
+
+  /* ✅ 비고란 크기 유지 */
+  .form-group textarea[name="extra[]"] {
+    height: 5rem;
+  }
+}

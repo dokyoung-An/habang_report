@@ -1,0 +1,132 @@
+html
+body {
+    padding: 0 80px 3rem;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding-top: 2vh; /* 상단 여백 조정 */
+    box-sizing: border-box;
+      
+}
+
+:root {
+    --primary-blue: #0066cc;
+    --secondary-blue: #e6f3ff;
+    --text-dark: #2c3e50;
+}
+/* ✅ 네비게이션 바 스타일 */
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* ✅ 왼쪽 정렬 */
+  align-items: center;
+  background-color: white;
+  height: auto;
+  box-sizing: border-box;
+  border-bottom: 2px solid var(--primary-blue);
+
+  /* ✅ 너비를 컨테이너와 동일하게 맞춤 */
+ 
+  margin: 0 auto; /* ✅ 중앙 정렬 */
+  padding: 10px 20px; /* ✅ 좌우 여백 추가 */
+}
+/* ✅ 네비게이션 링크 기본 스타일 */
+.nav-link {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--text-dark);
+  white-space: nowrap; /* ✅ 줄바꿈 방지 */
+}
+
+/* ✅ 네비게이션 활성화 스타일 */
+.nav-tabs .nav-link.active {
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+  border-bottom: 2px solid white;
+  font-weight: 600;
+}
+
+/* ✅ 네비게이션 아이콘과 텍스트 간격 */
+.nav-link i {
+  margin-right: 6px;
+}
+
+/* ✅ 로고 스타일 */
+.logo-link {
+  border: none !important;
+  padding: 0 !important;
+  margin-right: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-link:hover, .logo-link:focus {
+  background: none !important;
+  border: none !important;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+/* 섹션 헤더 스타일링 */
+h1 {
+    color: var(--text-dark);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+h2 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+   
+}
+
+.container {
+  min-width: 320px;
+}
+
+@media (max-width:768px) {
+  html body {
+    padding: 0 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+
+  .nav-tabs {
+    flex-direction: column; /* ✅ 모바일에서는 세로 정렬 */
+    align-items: center; /* ✅ 중앙 정렬 */
+    padding: 10px;
+}
+
+.nav-item {
+    width: 100%; /* ✅ 버튼 전체 너비 */
+    text-align: center;
+}
+
+.nav-link {
+    width: 80%; /* ✅ 모바일에서는 전체 너비 */
+    justify-content: center; /* ✅ 텍스트 중앙 정렬 */
+    padding: 12px 0;
+    margin: 0  auto;
+}
+
+.button-container {
+  flex-direction: column !important; /* ✅ 세로 정렬 */
+  gap: 20px; /* ✅ 버튼 간격 */
+}
+
+.main-button {
+  width: 100%; /* ✅ 모바일에서 전체 너비 */
+  height: 150px; /* ✅ 버튼 높이 조정 */
+}
+
+.logo-container {
+  margin-bottom: 40px; /* ✅ 로고 여백 조정 */
+}
+}
