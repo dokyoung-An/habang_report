@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -10,7 +11,7 @@ const archiver = require("archiver");
 const pdf = require("html-pdf");
 const fs = require("fs-extra",'fs');
 const ejs = require("ejs");
-require("dotenv").config();
+
 
 const PORT = process.env.PORT || 3000; // 환경 변수 사용
 
