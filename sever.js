@@ -10,6 +10,7 @@ const archiver = require("archiver");
 const pdf = require("html-pdf");
 const fs = require("fs-extra",'fs');
 const ejs = require("ejs");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3000; // 환경 변수 사용
 
@@ -31,20 +32,24 @@ app.get("*.map", (req, res) => {
 
 
 //monggodb 연결
-const mongoose = require("mongoose");
 
-const connectDB = async () => {
+const url = process.env.MONGO_URI;
+const client = new MongoClient(url);
+
+let db;
+async function connectDB() {
+  if (db) return db;
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await client.connect();
     console.log("✅ MongoDB 연결 성공!");
-  } catch (error) {
-    console.error("❌ MongoDB 연결 실패:", error);
+    db = client.db("Report");
+    return db;
+  } catch (err) {
+    console.error("❌ MongoDB 연결 실패:", err);
     process.exit(1);
   }
-};
+}
+
 
 module.exports = connectDB;
 
